@@ -6,3 +6,49 @@ body {
 a {
   color: #00B7FF;
 }
+.checkbox {
+  margin: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.preview {
+  width: 184px;
+  height: 206px;
+  flex-direction: column;
+  position: relative;
+  top: -177px;
+  display: none;
+}
+
+.preview.visible {
+  display: inline-flex;
+}
+
+.preview-row {
+  display: flex;
+  flex: 1;
+}
+
+.preview-col {
+  flex: 1;
+}
+
+.preview-col[data-checked="true"] {
+  background-color: #000;
+  border: 1px solid #000;
+}
+
+.preview-col[data-checked="false"] {
+  background-color: #FFF;
+  border: 1px solid #000;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-clear {
+  margin-top: 3px;
+}

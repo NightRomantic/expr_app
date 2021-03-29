@@ -17,5 +17,10 @@ module.exports = ({ db }) => {
     });
   });
 
+  router.post('/sendMatrix', (req, res) => {
+    console.log(req.body);
+    res.json({ kek: 'da' });
+  });
+
   return router;
 };

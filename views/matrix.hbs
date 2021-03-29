@@ -1,0 +1,76 @@
+<h1>{{title}}</h1>
+
+<div style="display: inline-block">
+  {{#each matrix}}
+    <div>
+      {{#each this}}
+        <input class="checkbox" type="checkbox" id={{@../index}}-{{this}}>
+      {{/each}}
+    </div>
+  {{/each}}
+  <button type="button" class="btn-block" onclick="handleSubmit()">Send</button>
+</div>
+
+<div class="preview"></div>
+
+<script>
+  const matrixArr = [...Array(8).keys()].map(() => [...Array(8).keys()]);
+  function isElementChecked(id) {
+    const el = document.getElementById(id);
+    if (el) return el.checked;
+    return false;
+  }
+  function clearPreview(_node) {
+    let node = _node;
+    if (!node) node = document.querySelector('.preview');
+    if (node.childElementCount > 0) {
+      node.className = 'preview';
+      node.replaceChildren();
+    }
+  }
+  function clearData() {
+    clearPreview();
+    matrixArr.forEach((arr, rId) => {
+      arr.forEach((_, cId) => {
+        document.getElementById(`${rId}-${cId}`).checked = false;
+      });
+    });
+  }
+  function drawPreview(data) {
+    const node = document.querySelector('.preview');
+    clearPreview(node);
+    node.className = 'preview visible';
+    
+    data.forEach((row) => {
+      const rowNode = document.createElement('div');
+      rowNode.className = 'preview-row';
+      row.forEach((el) => {
+        const elNode = document.createElement('div');
+        elNode.className = 'preview-col';
+        elNode.dataset.checked = el;
+        rowNode.appendChild(elNode);
+      });
+      node.appendChild(rowNode);
+    });
+    const btnNode = document.createElement('button');
+    btnNode.className = 'btn-block btn-clear';
+    btnNode.innerText = 'Clear';
+    btnNode.type = 'button';
+    btnNode.onclick = clearData;
+    node.appendChild(btnNode);
+  };
+  async function handleSubmit() {
+    let matrix = matrixArr;
+    matrix = matrix.map((arr, rId) => arr.map((_, cId) => isElementChecked(`${rId}-${cId}`)));
+    console.log(matrix);
+    const res = await fetch('/api/sendMatrix', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(matrix),
+    }).then(res => res.json());
+    console.log(res);
+    drawPreview(matrix);
+  }
+</script>

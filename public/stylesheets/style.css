@@ -52,3 +52,11 @@ a {
 .btn-clear {
   margin-top: 3px;
 }
+
+.result {
+  display: none;
+}
+
+.result.visible {
+  display: flex;
+}

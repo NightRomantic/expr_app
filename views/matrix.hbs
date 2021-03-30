@@ -12,6 +12,12 @@
 </div>
 
 <div class="preview"></div>
+<div class="result">
+  <h4>
+    Ближайшая сторона по расстоянию Хэмминга:
+    <span id = "result_value"></span>
+  </h4>
+</div>
 
 <script>
   const matrixArr = [...Array(8).keys()].map(() => [...Array(8).keys()]);
@@ -20,6 +26,7 @@
     if (el) return el.checked;
     return false;
   }
+
   function clearPreview(_node) {
     let node = _node;
     if (!node) node = document.querySelector('.preview');
@@ -27,7 +34,12 @@
       node.className = 'preview';
       node.replaceChildren();
     }
+    const result = document.querySelector('.result');
+    if(result.childElementCount > 0) {
+      result.className = 'result';
+    }
   }
+
   function clearData() {
     clearPreview();
     matrixArr.forEach((arr, rId) => {
@@ -36,7 +48,8 @@
       });
     });
   }
-  function drawPreview(data) {
+
+  function drawPreview(data, result) {
     const node = document.querySelector('.preview');
     clearPreview(node);
     node.className = 'preview visible';
@@ -58,7 +71,11 @@
     btnNode.type = 'button';
     btnNode.onclick = clearData;
     node.appendChild(btnNode);
+    const resultDiv = document.querySelector('.result');
+    resultDiv.className = 'result visible';
+    document.getElementById('result_value').innerText = result;
   };
+
   async function handleSubmit() {
     let matrix = matrixArr;
     matrix = matrix.map((arr, rId) => arr.map((_, cId) => isElementChecked(`${rId}-${cId}`)));
@@ -69,7 +86,7 @@
       },
       body: JSON.stringify(matrix),
     }).then(res => res.json());
-    console.log(res);
-    drawPreview(matrix);
+    drawPreview(matrix, res);
   }
+
 </script>

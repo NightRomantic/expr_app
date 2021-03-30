@@ -1,5 +1,5 @@
 const express = require('express');
-const sendMatrix = require('../conrollers/sendMatrix');
+const sendMatrix = require('../controllers/sendMatrix');
 
 const router = express.Router();
 
@@ -20,5 +20,6 @@ module.exports = ({ db }) => {
   });
 
   router.post('/sendMatrix', sendMatrix);
+
   return router;
 };

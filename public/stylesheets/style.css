@@ -1,6 +1,8 @@
 body {
-  padding: 50px;
+  padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -12,13 +14,23 @@ a {
   height: 20px;
 }
 
-.preview {
-  width: 184px;
-  height: 206px;
+.wrapper {
+  display: flex;
   flex-direction: column;
-  position: relative;
-  top: -177px;
+}
+
+.form {
+  width: 188px;
+  height: 217px;
+}
+
+.preview {
+  width: 188px;
+  height: 217px;
+  flex-direction: column;
+  padding-top: 12px;
   display: none;
+  box-sizing: border-box;
 }
 
 .preview.visible {
@@ -28,6 +40,7 @@ a {
 .preview-row {
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
 .preview-col {
@@ -41,16 +54,40 @@ a {
 
 .preview-col[data-checked="false"] {
   background-color: #FFF;
-  border: 1px solid #000;
+  border: 1px solid #757575;
+}
+
+.preview-col:not(:last-of-type) {
+  border-right: none;
+}
+
+.preview-row:not(:last-of-type) .preview-col {
+  border-bottom: none;
+}
+
+.preview-row:first-of-type {
+  border-radius: 3px 3px 0 0;
+}
+
+.preview-row:last-of-type {
+  border-radius: 0 0 3px 3px;
 }
 
 .btn-block {
   display: block;
   width: 100%;
+  background: hsl(0deg 0% 0%);
+  color: hsl(0deg 0% 100%);
+  border: none;
+  outline: none;
+  margin-top: 4px;
+  border-radius: 3px;
+  padding: 7px 12px;
+  cursor: pointer;
 }
 
 .btn-clear {
-  margin-top: 3px;
+  margin-top: 6px;
 }
 
 .result {
@@ -59,4 +96,25 @@ a {
 
 .result.visible {
   display: flex;
+}
+
+.btn-block:hover {
+  background: rgb(36, 35, 37);
+}
+
+.btn-block:active {
+  background: rgb(42, 41, 43);
+}
+
+@media screen and (min-width: 540px) {
+  .wrapper {
+    flex-direction: row;
+  }
+  .preview {
+    padding-top: 0;
+    padding-left: 12px;
+  }
+  body {
+    padding: 50px;
+  }
 }

@@ -1,26 +1,29 @@
 <h1>{{title}}</h1>
 
-<div style="display: inline-block">
-  {{#each matrix}}
-    <div>
-      {{#each this}}
-        <input class="checkbox" type="checkbox" id={{@../index}}-{{this}}>
-      {{/each}}
-    </div>
-  {{/each}}
-  <button type="button" class="btn-block" onclick="handleSubmit()">Send</button>
-</div>
+<div class="wrapper">
+  <div class="form">
+    {{#each matrix}}
+      <div>
+        {{#each this}}
+          <input class="checkbox" type="checkbox" id={{@../index}}-{{this}}>
+        {{/each}}
+      </div>
+    {{/each}}
+    <button type="button" class="btn-block" onclick="handleSubmit()">Send</button>
+  </div>
 
-<div class="preview"></div>
+  <div class="preview"></div>
+</div>
 <div class="result">
   <h4>
     Ближайшая сторона по расстоянию Хэмминга:
-    <span id = "result_value"></span>
+    <span id="result_value"></span>
   </h4>
 </div>
 
 <script>
   const matrixArr = [...Array(8).keys()].map(() => [...Array(8).keys()]);
+
   function isElementChecked(id) {
     const el = document.getElementById(id);
     if (el) return el.checked;
@@ -49,12 +52,12 @@
     });
   }
 
-  function drawPreview(data, result) {
+  function drawPreview({ index, side }) {
     const node = document.querySelector('.preview');
     clearPreview(node);
     node.className = 'preview visible';
     
-    data.forEach((row) => {
+    side.forEach((row) => {
       const rowNode = document.createElement('div');
       rowNode.className = 'preview-row';
       row.forEach((el) => {
@@ -65,15 +68,17 @@
       });
       node.appendChild(rowNode);
     });
+
     const btnNode = document.createElement('button');
     btnNode.className = 'btn-block btn-clear';
     btnNode.innerText = 'Clear';
     btnNode.type = 'button';
     btnNode.onclick = clearData;
     node.appendChild(btnNode);
+
     const resultDiv = document.querySelector('.result');
     resultDiv.className = 'result visible';
-    document.getElementById('result_value').innerText = result;
+    document.getElementById('result_value').innerText = index;
   };
 
   async function handleSubmit() {
@@ -86,7 +91,8 @@
       },
       body: JSON.stringify(matrix),
     }).then(res => res.json());
-    drawPreview(matrix, res);
+
+    drawPreview(res);
   }
 
 </script>

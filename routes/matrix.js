@@ -6,7 +6,7 @@ module.exports = ({ db }) => {
   router.get('/matrix', function (req, res) {
     const matrix = [...Array(8).keys()].map(() => [...Array(8).keys()]);
     res.render('matrix', {
-      title: 'Matrix form',
+      title: 'Hamming distance',
       matrix,
     });
   });

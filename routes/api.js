@@ -20,5 +20,6 @@ module.exports = ({ db }) => {
   });
 
   router.post('/sendMatrix', sendMatrix);
+
   return router;
 };

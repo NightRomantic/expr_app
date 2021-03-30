@@ -62,7 +62,6 @@
   async function handleSubmit() {
     let matrix = matrixArr;
     matrix = matrix.map((arr, rId) => arr.map((_, cId) => isElementChecked(`${rId}-${cId}`)));
-    console.log(matrix);
     const res = await fetch('/api/sendMatrix', {
       method: 'POST',
       headers: {

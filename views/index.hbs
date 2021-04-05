@@ -1,20 +1,39 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-<hr />
-{{#each posts}}
-  <div style="border-top: 1px solid #000;">
-    <h1>{{this.title}}</h1>
-    <p>{{this.content}}</p>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<div class="container">
+  <div class="row">
+    <div class="col-sm"></div>
+    <div class="col-6 wrapper">
+      <h1>{{title}}</h1>
+      <p>Welcome to {{title}}</p>
+      <hr />
+      <div class="postsContainer">
+        {{#each posts}}
+          <div class="post">
+            <div class="title">
+              {{this.title}}
+            </div>
+            <div class="content">
+              {{this.content}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+      <div class="formContainer">
+        <form action="/api/sendForm" method="POST">
+          <div>
+            <label for="title">Название</label><br />
+            <input id="title" name="title" type="text"></input>
+          </div>
+          <div>
+            <label for="content">Контент</label><br />
+            <textarea id="content" name="content"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Создать пост</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm"></div>
   </div>
-{{/each}}
-<form action="/api/sendForm" method="POST">
-  <div>
-    <label for="title">Название</label><br />
-    <input id="title" name="title" type="text"></input>
-  </div>
-  <div>
-    <label for="content">Контент</label><br />
-    <textarea id="content" name="content"></textarea>
-  </div>
-  <button type="submit">Отправить</button>
-</form>
+</div>
+</div>
+

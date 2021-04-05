@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #E5E5E5!important;
 }
 
 a {
@@ -59,4 +60,38 @@ a {
 
 .result.visible {
   display: flex;
+}
+
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.post{
+  display: block;
+  padding: 3px;
+  background-color: #FFF;
+  word-break: break-all;
+}
+
+.title {
+  font-size: 20px;
+  color: #000;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+}
+
+.formContainer{
+  margin-top: 50px;
+}
+
+.inputStyle {
+  margin-bottom: 10px;
+}
+
+.wrapper {
+  width: 70%;
 }

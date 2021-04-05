@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+
+
 module.exports = ({ db }) => {
 
   router.get('/', (req, res) => {
@@ -8,7 +10,7 @@ module.exports = ({ db }) => {
       if (err) throw new Error(err);
   
       res.render('index', {
-        title: 'Posts list',
+        title: 'Not-a-bash',
         date: Date.now(),
         posts: docs,
       });
